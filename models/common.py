@@ -484,9 +484,9 @@ class Detections:
                     str += f"{n} {self.names[0]}{'s' * (n > 1)}, "  # add to string
                 if show or save or render or crop:
                     for *box, conf, cls in pred:  # xyxy, confidence, class
-                        label = f'{self.names[int(cls)]} {conf:.2f}'
+                        label = f'{self.names[0]} {conf:.2f}'
                         if crop:
-                            save_one_box(box, im, file=save_dir / 'crops' / self.names[int(cls)] / self.files[i])
+                            save_one_box(box, im, file=save_dir / 'crops' / self.names[0] / self.files[i])
                         else:  # all others
                             plot_one_box(box, im, label=label, color=colors(cls))
 
