@@ -65,7 +65,7 @@ def butter_lowpass_filtfilt(data, cutoff=1500, fs=50000, order=5):
     return filtfilt(b, a, data)  # forward-backward filter
 
 
-def plot_one_box(x, im, color=None, label=None, line_thickness=3, kpt_label=False, kpts=None, steps=2, orig_shape=None):
+def plot_one_box(x, im, color=None, label=None, line_thickness=3, kpt_label=True, kpts=None, steps=2, orig_shape=None):
     # Plots one bounding box on image 'im' using OpenCV
     assert im.data.contiguous, 'Image not contiguous. Apply np.ascontiguousarray(im) to plot_on_box() input image.'
     tl = line_thickness or round(0.002 * (im.shape[0] + im.shape[1]) / 2) + 1  # line/font thickness
