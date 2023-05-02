@@ -459,7 +459,7 @@ class autoShape(nn.Module):
 
 class Detections:
     # detections class for YOLOv5 inference results
-    def __init__(self, imgs, pred, files, times=None, names=[], shape=None):
+    def __init__(self, imgs, pred, files, times=None, names=None, shape=None):
         super(Detections, self).__init__()
         d = pred[0].device  # device
         gn = [torch.tensor([*[im.shape[i] for i in [1, 0, 1, 0]], 1., 1.], device=d) for im in imgs]  # normalizations
@@ -477,12 +477,11 @@ class Detections:
 
     def display(self, pprint=False, show=False, save=False, crop=False, render=False, save_dir=Path('')):
         for i, (im, pred) in enumerate(zip(self.imgs, self.pred)):
-            str = f'image {i + 1}/{len(self.pred)}: {im.shape[0]}x{im.shape[1]} '
+            str = f'image {i + 1}/{len(self.pred)}: {im.shape[0]}x{im.shape[1]}'
             if pred is not None:
                 for c in pred[:, -1].unique():
                     n = (pred[:, -1] == c).sum()  # detections per class
-                    print("n값 출력 : ", n)
-                    str += f"{n} {self.names[int(c)]}{'s' * (n > 1)}, "  # add to string
+                    str += f"{n} {self.names[0]}{'s' * (n > 1)}, "  # add to string
                 if show or save or render or crop:
                     for *box, conf, cls in pred:  # xyxy, confidence, class
                         label = f'{self.names[int(cls)]} {conf:.2f}'
